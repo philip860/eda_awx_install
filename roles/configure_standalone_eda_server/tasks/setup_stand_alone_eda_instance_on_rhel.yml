@@ -205,3 +205,12 @@
   ansible.builtin.shell: echo 'export NAMESPACE=eda' >>  ~/.bashrc
   args:
     executable: /bin/bash
+
+
+
+
+- name: Start Nginx Reverse Proxy Server
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true 
