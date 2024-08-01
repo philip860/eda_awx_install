@@ -57,7 +57,7 @@ perform_request() {
         # Triggering specific action (replace with actual action)
 
         # Replace port value in nginx file
-        sed -i "s/30190/$trimmed_string/g" "/admin_tools/eda_install_config/eda-nginx-final-ssl.conf"
+        sed -i "s/eda-server/$trimmed_string/g" "/admin_tools/eda_install_config/eda-nginx-final-ssl.conf"
 
         # Updating eda-ssl.conf to have the updated Port
         cat /admin_tools/eda_install_config/eda-nginx-final-ssl.conf > /etc/nginx/conf.d/eda-awx-ssl.conf
