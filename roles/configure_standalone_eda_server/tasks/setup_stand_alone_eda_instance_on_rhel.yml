@@ -255,6 +255,25 @@
     msg: "{{ eda_service_status_output.stdout }}"
 
 
+##### Uninstalling traefik here
+- name: Create the /admin_tools/eda_awx_install_config/helm if it is not present
+  ansible.builtin.file:
+    path: "/admin_tools/eda_awx_install_config/helm"
+    state: directory
+    mode: '0755'
+
+- name: Download helm package
+  ansible.builtin.shell: wget https://get.helm.sh/helm-v3.15.3-linux-amd64.tar.gz
+  args:
+    executable: /bin/bash
+    chdir: /admin_tools/eda_awx_install_config/helm 
+
+
+- name: Install helm package
+  ansible.builtin.shell: tar -xvf helm-v3.15.3-linux-amd64.tar.gz && cp -r linux-amd64/helm /usr/bin
+  args:
+    executable: /bin/bash
+    chdir: /admin_tools/eda_awx_install_config/helm 
 
 
 # - name: Start Nginx Reverse Proxy Server
