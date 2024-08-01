@@ -228,12 +228,7 @@
 
 
 
-##### Need to replace the proxy IP address in the nginx config
-# - name: Entering a awx_admin_username Into secret File
-#   replace:
-#     path: "/etc/nginx/conf.d/eda-awx-ssl.conf"
-#     regexp: 'eda-server'
-#     replace: "{{ awx_admin_username }}"
+
 
 
 
@@ -304,6 +299,13 @@
     name: k3s
     state: restarted
     enabled: true 
+
+##### Need to replace the proxy IP address in the nginx config
+- name: Entering a awx_admin_username Into secret File
+  replace:
+    path: "/etc/nginx/conf.d/eda-awx-ssl.conf"
+    regexp: 'eda-server'
+    replace: "{{ cluster_ip }}"
 
 
 # - name: Start Nginx Reverse Proxy Server
