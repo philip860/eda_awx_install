@@ -126,14 +126,6 @@
 
 
 
-- name: Entering a awx_admin_username Into secret File
-  replace:
-    path: "/admin_tools/awx-operator/awx-deploy/secret.yaml"
-    regexp: 'iam_password'
-    replace: "{{ awx_admin_username }}"
-
-
-
 - name: Configure Firewall Ports For Kubernetes
   ansible.posix.firewalld:
     port: "{{ item }}/tcp"
