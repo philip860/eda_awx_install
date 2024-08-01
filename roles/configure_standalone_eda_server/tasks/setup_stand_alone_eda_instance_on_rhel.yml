@@ -243,10 +243,8 @@
 #     executable: /bin/bash
 
 
-
-
 - name: Get EDA Service Status
-  ansible.builtin.shell:  kubectl get service -n eda | grep -q 'eda-ui'
+  ansible.builtin.shell:  kubectl get service -n eda | grep 'eda-ui'
   args:
     executable: /bin/bash
   register: eda_service_status_output
@@ -255,6 +253,18 @@
 - name: Print eda_service_status_output
   ansible.builtin.debug:
     msg: "{{ eda_service_status_output.stdout }}"
+
+
+- name: Extract ClusterIP using regex
+  set_fact:
+    cluster_ip: "{{ eda_service_status_output.stdout | regex_search('ClusterIP\\s+(\\S+)', '\\1') }}"
+
+
+- name: Print cluster_ip
+  ansible.builtin.debug:
+    msg: "{{ cluster_ip }}"
+
+
 
 
 ##### Uninstalling traefik here
