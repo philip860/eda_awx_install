@@ -175,7 +175,7 @@
   ansible.builtin.shell: mv kustomization.yaml /admin_tools/eda_awx_install_config/kustomize_config/kustomization.yaml
   args:
     executable: /bin/bash
-    chdir: /admin_tools/eda_awx_install_config
+    chdir: /admin_tools/eda_awx_install_config/eda-deploy
 
 
 - name: Run kustomize to install eda operator 
