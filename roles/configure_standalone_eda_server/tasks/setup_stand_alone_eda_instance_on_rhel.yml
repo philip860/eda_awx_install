@@ -277,6 +277,24 @@
     chdir: /admin_tools/eda_awx_install_config/helm 
 
 
+- name: Remove traefik File
+  ansible.builtin.shell: 	/var/lib/rancher/k3s/server/manifests/traefik.yaml
+  args:
+    executable: /bin/bash
+
+- name: Uninstall traefik File
+  ansible.builtin.shell: helm uninstall traefik traefik-crd -n kube-system
+  args:
+    executable: /bin/bash
+
+
+- name: Re-Start Nginx Reverse Proxy Server
+  ansible.builtin.systemd:
+    name: k3s
+    state: restarted
+    enabled: true 
+
+
 # - name: Start Nginx Reverse Proxy Server
 #   ansible.builtin.systemd:
 #     name: nginx
