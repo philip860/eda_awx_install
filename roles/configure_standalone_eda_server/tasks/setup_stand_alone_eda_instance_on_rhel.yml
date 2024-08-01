@@ -334,7 +334,7 @@
 
 - name: Remove brackets and quotes from cluster_ip
   set_fact:
-    cluster_ip_var: "{{ cluster_ip | regex_replace('\\[', '') | regex_replace('\\]', '') | regex_replace('\'', '') }}"
+    cluster_ip_var: "{{ cluster_ip | regex_replace('\\[', '') | regex_replace('\\]', '') | regex_replace('\\'', '') }}"
 
 
 ##### Need to replace the proxy IP address in the nginx config
