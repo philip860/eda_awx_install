@@ -282,8 +282,16 @@
 
 
 
-- name: Re-configure Kubernetes Cluster Settings
-  ansible.builtin.shell: mkdir ~/.kube  && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chown $USER ~/.kube/config && chmod +x /usr/local/bin/kubectl && ln -s /usr/local/bin/kubectl /usr/bin/kubectl
+- name: Re-configure Kubernetes Cluster Settings - Pt.1
+  ansible.builtin.shell: mkdir ~/.kube
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+
+
+
+- name: Re-configure Kubernetes Cluster Settings - Pt.2
+  ansible.builtin.shell: sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chown $USER ~/.kube/config && chmod +x /usr/local/bin/kubectl && ln -s /usr/local/bin/kubectl /usr/bin/kubectl
   args:
     executable: /bin/bash
 
