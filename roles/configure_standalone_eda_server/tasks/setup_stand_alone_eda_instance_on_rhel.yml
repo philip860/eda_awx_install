@@ -72,16 +72,15 @@
 
 
 
-# - name: Create Required Persistent Volume Directories
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     owner: root
-#     group: root
-#     mode: 0775
-#   loop:
-#     - /var/lib/awx/postgres
-#     - /var/lib/awx/projects
+- name: Create Required Nginx Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: nginx
+    group: nginx
+    mode: 0775
+  loop:
+    - /etc/nginx/certs
 
 # - name: Set /data/projects Directory Permissions
 #   ansible.builtin.shell: chown 1000:0 /var/lib/awx/projects
