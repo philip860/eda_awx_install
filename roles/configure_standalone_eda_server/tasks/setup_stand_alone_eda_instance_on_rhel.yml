@@ -200,12 +200,22 @@
     zone: public
 
 
-- name: Waiting 5 Minutes For Pods To Initialize
-  ansible.builtin.shell:  /bin/sleep 300
+- name: Waiting 1 Minute For Pods To Initialize - Pt.1
+  ansible.builtin.shell:  /bin/sleep 60
   args:
     executable: /bin/bash
 
 
+- name: Waiting 1 Minute For Pods To Initialize - Pt.2
+  ansible.builtin.shell:  /bin/sleep 60
+  args:
+    executable: /bin/bash
+
+
+- name: Waiting 1 Minute For Pods To Initialize - Pt.3
+  ansible.builtin.shell:  /bin/sleep 60
+  args:
+    executable: /bin/bash
 
 - name: Create a EDA user
   user:
