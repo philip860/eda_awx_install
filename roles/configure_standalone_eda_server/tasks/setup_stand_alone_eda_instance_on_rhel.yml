@@ -221,11 +221,11 @@
 #     replace: "{{ awx_admin_username }}"
 
 
-- name: Run Shell Script To Update Nginx Proxy For EDA Server
-  ansible.builtin.shell: bash set_proxy_IP_For_EDA_Server.sh
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/eda_awx_install_config 
+# - name: Run Shell Script To Update Nginx Proxy For EDA Server
+#   ansible.builtin.shell: bash set_proxy_IP_For_EDA_Server.sh
+#   args:
+#     executable: /bin/bash
+#     chdir: /admin_tools/eda_awx_install_config 
 
 
 # - name: Run Shell Script To Update Nginx Proxy For EDA Server
