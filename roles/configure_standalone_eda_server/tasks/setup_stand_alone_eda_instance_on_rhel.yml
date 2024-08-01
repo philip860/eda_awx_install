@@ -200,6 +200,7 @@
     zone: public
 
 
+####### There seems to be a bug with the sleep package, any times longer than 60s seem to freeze the terminal
 - name: Waiting 1 Minute For Pods To Initialize - Pt.1
   ansible.builtin.shell:  /bin/sleep 60
   args:
