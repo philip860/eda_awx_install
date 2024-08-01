@@ -350,3 +350,9 @@
     name: nginx
     state: started
     enabled: true 
+
+#Seems to be an issue with k3s running EDA with firewalld enabled
+- name: Disable Firewalld
+  ansible.builtin.shell: systemctl stop firewalld && systemctl disable firewalld
+  args:
+    executable: /bin/bash
