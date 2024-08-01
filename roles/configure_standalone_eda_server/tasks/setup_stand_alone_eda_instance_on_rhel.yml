@@ -4,6 +4,11 @@
     name: nginx
     state: present 
 
+- name: Install wget
+  ansible.builtin.yum:
+    name: wget
+    state: present 
+
 
 - name: Set SELinux Context For Nginx
   ansible.builtin.shell:  setsebool -P httpd_can_network_connect 1
