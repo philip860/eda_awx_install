@@ -5,6 +5,16 @@
     state: present 
 
 
+- name: Set SELinux Context For Nginx
+  ansible.builtin.shell:  setsebool -P httpd_can_network_connect 1
+  args:
+    executable: /bin/bash
+
+
+
+
+
+
 - name: Permit traffic in default zone on port 5432/tcp For External Postgres Server
   ansible.posix.firewalld:
     port: 5432/tcp
