@@ -1,5 +1,5 @@
 ---
-- name: Configure_awx_operator.yml
+- name: Configure_eda_operator.yml
   ansible.builtin.include_tasks:
-    file: Configure_awx_operator.yml
+    file: Configure_eda_operator.yml
 
