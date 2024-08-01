@@ -164,15 +164,15 @@
 
 
 #### Need to re-arrange the kustomize.yaml file Location
-- name: Create the /admin_tools/eda_awx_install_config/kustomize Directory
+- name: Create the /admin_tools/eda_awx_install_config/kustomize_config Directory
   ansible.builtin.file:
-    path: "/admin_tools/eda_awx_install_config/kustomize/"
+    path: "/admin_tools/eda_awx_install_config/kustomize_config/"
     state: directory
     mode: '0755'
     recurse: yes
 
-- name: Move kustomization.yaml File to /admin_tools/eda_awx_install_config/kustomize Directory
-  ansible.builtin.shell: mv kustomization.yaml /admin_tools/eda_awx_install_config/kustomize/kustomization.yaml
+- name: Move kustomization.yaml File to /admin_tools/eda_awx_install_config/kustomize_config Directory
+  ansible.builtin.shell: mv kustomization.yaml /admin_tools/eda_awx_install_config/kustomize_config/kustomization.yaml
   args:
     executable: /bin/bash
     chdir: /admin_tools/eda_awx_install_config
@@ -182,7 +182,7 @@
   ansible.builtin.shell: /usr/local/bin/kustomize build . | kubectl apply -f -
   args:
     executable: /bin/bash
-    chdir: /admin_tools/eda_awx_install_config/kustomize
+    chdir: /admin_tools/eda_awx_install_config/kustomize_config
     
 - name: Apply EDA Server Config
   ansible.builtin.shell: /usr/local/bin/kubectl apply  -f eda.yaml -n eda
