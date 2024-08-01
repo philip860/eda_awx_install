@@ -241,6 +241,22 @@
 #     executable: /bin/bash
 
 
+
+
+- name: Get EDA Service Status
+  ansible.builtin.shell:  kubectl get service -n eda | grep -q 'eda-ui'
+  args:
+    executable: /bin/bash
+  register: eda_service_status_output
+
+
+- name: Print eda_service_status_output
+  ansible.builtin.debug:
+    msg: "{{ eda_service_status_output.stdout }}"
+
+
+
+
 # - name: Start Nginx Reverse Proxy Server
 #   ansible.builtin.systemd:
 #     name: nginx
