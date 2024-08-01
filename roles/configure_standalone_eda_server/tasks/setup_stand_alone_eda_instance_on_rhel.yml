@@ -288,7 +288,7 @@
     executable: /bin/bash
 
 
-- name: Re-Start Nginx Reverse Proxy Server
+- name: Re-Start K3s Service
   ansible.builtin.systemd:
     name: k3s
     state: restarted
