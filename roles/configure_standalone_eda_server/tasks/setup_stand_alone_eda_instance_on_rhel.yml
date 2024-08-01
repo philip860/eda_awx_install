@@ -22,9 +22,9 @@
 
 
 
-- name: Copy Over Custom config_files to /admin_tools/awx-operator
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/config_files"
+- name: Copy Over Custom  to /admin_tools/awx-operator
+  ansible.builtin.template:
+    src: "{{ role_path }}/files/config_files/"
     dest: "/admin_tools/eda-operator"
 
 
@@ -34,13 +34,6 @@
     src: "{{ role_path }}/files/http_redirect"
     dest: "/admin_tools/eda-operator"
    
-
-#- name: Copy Over Custom awx-deploy to /admin_tools/awx-operator
-#  ansible.builtin.copy:
-#    src: "/admin_tools/awx-deploy"
-#    dest: "/admin_tools/awx-operator"
-#    remote_src: yes 
-
 
 - name: Create the ITS_tools Git Download Directory
   ansible.builtin.file:
