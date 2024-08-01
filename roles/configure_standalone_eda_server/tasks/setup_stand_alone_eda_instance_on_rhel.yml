@@ -291,11 +291,15 @@
 
 
 - name: Re-configure Kubernetes Cluster Settings - Pt.2
-  ansible.builtin.shell: sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chown $USER ~/.kube/config && chmod +x /usr/local/bin/kubectl && ln -s /usr/local/bin/kubectl /usr/bin/kubectl
+  ansible.builtin.shell: sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chown $USER ~/.kube/config && chmod +x /usr/local/bin/kubectl
   args:
     executable: /bin/bash
 
-
+- name: Re-configure Kubernetes Cluster Settings - Pt.3
+  ansible.builtin.shell: ln -s /usr/local/bin/kubectl /usr/bin/kubectl
+  args:
+    executable: /bin/bash
+  ignore_errors: true
 
 
 - name: Download helm package
