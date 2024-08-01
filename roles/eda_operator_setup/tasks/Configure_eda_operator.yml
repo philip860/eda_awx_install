@@ -3,7 +3,7 @@
     path: "/admin_tools/eda_awx_install_config"
   register:  admin_tools_eda_awx_install_dir_check
 
-- name: Create the ITS_tools directory if it is not present
+- name: Create the /admin_tools/eda_awx_install_config directory if it is not present
   ansible.builtin.file:
     path: "/admin_tools/eda_awx_install_config"
     state: directory
@@ -11,7 +11,6 @@
     recurse: yes
   when: not admin_tools_eda_awx_install_dir_check.stat.exists == true
   
-
 
 
 - name: Copy Over Custom eda-deploy files to /admin_tools/awx-operator
