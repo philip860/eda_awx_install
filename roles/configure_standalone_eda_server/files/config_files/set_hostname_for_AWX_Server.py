@@ -63,8 +63,6 @@ perform_request() {
         cat /admin_tools/eda_install_config/eda-nginx-final-ssl.conf > /etc/nginx/conf.d/eda-awx-ssl.conf
         systemctl restart nginx
 
-        # Updating index.html page of eda status
-        sed -i 's/Loading..../eda Server is up!/g' /usr/share/testpage/index.html
 
         # Command to get eda admin password from Kubernetes secret
         secret_output=$(kubectl -n eda get secret eda-admin-password -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}')
