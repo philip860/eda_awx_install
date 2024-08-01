@@ -188,7 +188,7 @@
   ansible.builtin.shell: /usr/local/bin/kubectl apply  -f eda.yaml -n eda
   args:
     executable: /bin/bash
-    chdir: /admin_tools/eda_awx_install_config 
+    chdir: /admin_tools/eda_awx_install_config/eda-deploy
      
     
 - name: Enable masquerade for Public Zone for http service
