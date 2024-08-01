@@ -295,7 +295,7 @@
 
 
 - name: Remove traefik File
-  ansible.builtin.shell: 	/var/lib/rancher/k3s/server/manifests/traefik.yaml
+  ansible.builtin.shell: 	rm -rf /var/lib/rancher/k3s/server/manifests/traefik.yaml
   args:
     executable: /bin/bash
 
