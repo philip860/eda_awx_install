@@ -180,8 +180,8 @@
     zone: public
 
 
-- name: Waiting 30 Seconds For Pods To Initialize
-  ansible.builtin.shell:  /bin/sleep 30
+- name: Waiting 1min For Pods To Initialize
+  ansible.builtin.shell:  /bin/sleep 1m
   args:
     executable: /bin/bash
 
