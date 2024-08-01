@@ -25,14 +25,14 @@
 - name: Copy Over Custom config_files to /admin_tools/awx-operator
   ansible.builtin.copy:
     src: "{{ role_path }}/files/config_files"
-    dest: "/admin_tools/awx-operator"
+    dest: "/admin_tools/eda-operator"
 
 
 
 - name: Copy Over Custom http_redirect to /admin_tools/awx-operator
   ansible.builtin.copy:
     src: "{{ role_path }}/files/http_redirect"
-    dest: "/admin_tools/awx-operator"
+    dest: "/admin_tools/eda-operator"
    
 
 #- name: Copy Over Custom awx-deploy to /admin_tools/awx-operator
