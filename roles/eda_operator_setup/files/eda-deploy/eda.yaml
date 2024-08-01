@@ -4,5 +4,5 @@ metadata:
   name: eda
   namespace: eda
 spec:
-  automation_server_url: {{ ansible_aap_controller }}
+  automation_server_url: https://ansible_aap_controller 
 
