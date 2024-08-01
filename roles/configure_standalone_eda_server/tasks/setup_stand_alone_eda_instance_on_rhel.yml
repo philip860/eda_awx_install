@@ -186,28 +186,22 @@
     executable: /bin/bash
 
 
-    
-    
-- name: Waiting 10 Seconds For Pods To Initialize After Patch
-  ansible.builtin.shell:  /bin/sleep 10
-  args:
-    executable: /bin/bash
 
 - name: Create a AWX user
   user:
-   name: awx
+   name: eda
    password: "{{ awx_user_password_var | password_hash('sha512') }}"
    state: present
    shell: /bin/bash
    system: no
    createhome: yes
-   home: /home/awx
+   home: /home/eda
 
 
 
-- name: Export AWX NameSpace To AWX User Bash Profile
+- name: Export eda NameSpace To EDA User Bash Profile
   become: true
-  become_user: awx
+  become_user: eda
   ansible.builtin.shell: echo 'export NAMESPACE=eda' >>  ~/.bashrc
   args:
     executable: /bin/bash
