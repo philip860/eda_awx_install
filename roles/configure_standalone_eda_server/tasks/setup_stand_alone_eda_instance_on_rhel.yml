@@ -280,6 +280,16 @@
     state: directory
     mode: '0755'
 
+
+
+- name: Re-configure Kubernetes Cluster Settings
+  ansible.builtin.shell: mkdir ~/.kube  && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chown $USER ~/.kube/config && chmod +x /usr/local/bin/kubectl && ln -s /usr/local/bin/kubectl /usr/bin/kubectl
+  args:
+    executable: /bin/bash
+
+
+
+
 - name: Download helm package
   ansible.builtin.shell: wget https://get.helm.sh/helm-v3.15.3-linux-amd64.tar.gz
   args:
