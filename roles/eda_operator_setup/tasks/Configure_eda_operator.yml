@@ -33,7 +33,7 @@
     chdir: /admin_tools/eda_awx_install_config
 
 - name: Install kustomize 
-  ansible.builtin.shell:  'install -o root -g root -m 0755 kustomize /usr/local/bin/kustomize'
+  ansible.builtin.shell:  'install -o root -g root -m 0755 kustomize /usr/local/bin/kustomize && ln -s /usr/local/bin/kustomize /usr/bin/kustomize'
   args:
     executable: /bin/bash
     chdir: /admin_tools/eda_awx_install_config  
