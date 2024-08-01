@@ -241,8 +241,8 @@
 #     executable: /bin/bash
 
 
-- name: Start Nginx Reverse Proxy Server
-  ansible.builtin.systemd:
-    name: nginx
-    state: started
-    enabled: true 
+# - name: Start Nginx Reverse Proxy Server
+#   ansible.builtin.systemd:
+#     name: nginx
+#     state: started
+#     enabled: true 
