@@ -164,11 +164,11 @@
     executable: /bin/bash
     chdir: /admin_tools/eda_awx_install_config
     
-- name: Apply AWX Secrets
-  ansible.builtin.shell: /usr/local/bin/kubectl apply -f secret.yaml
+- name: Apply EDA Server Config
+  ansible.builtin.shell: /usr/local/bin/kubectl apply  -f eda.yaml -n eda
   args:
     executable: /bin/bash
-    chdir: /admin_tools/awx-operator/awx-deploy    
+    chdir: /admin_tools/eda_awx_install_config 
      
     
 - name: Enable masquerade for Public Zone for http service
