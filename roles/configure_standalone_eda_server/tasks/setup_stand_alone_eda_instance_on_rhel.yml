@@ -53,44 +53,40 @@
 
 
 
-- name: Create Namespace for AWX Operator Pt.1
-  ansible.builtin.shell:  export NAMESPACE=awx
+- name: Create Namespace for EDA Operator Pt.1
+  ansible.builtin.shell:  export NAMESPACE=eda
   args:
     executable: /bin/bash
 
-- name: Create Namespace for AWX Operator Pt.2
-  ansible.builtin.shell:  /usr/local/bin/kubectl  create ns awx
-  args:
-    executable: /bin/bash
-  ignore_errors: true
-
-- name: Create Namespace for AWX Operator Pt.3
-  ansible.builtin.shell:  /usr/local/bin/kubectl  config set-context --current --namespace=awx
+- name: Create Namespace for EDA Operator Pt.2
+  ansible.builtin.shell:  /usr/local/bin/kubectl  create ns eda
   args:
     executable: /bin/bash
   ignore_errors: true
 
-#- name: Set the Hostname of the System In AWX Config File
-#  ansible.builtin.shell:  python3 set_hostname_for_AWX_Server.py
-#  args:
-#    executable: /bin/bash
-#    chdir: /admin_tools/awx-operator/config_files
-
-- name: Create Required Persistent Volume Directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 0775
-  loop:
-    - /var/lib/awx/postgres
-    - /var/lib/awx/projects
-
-- name: Set /data/projects Directory Permissions
-  ansible.builtin.shell: chown 1000:0 /var/lib/awx/projects
+- name: Create Namespace for EDA Operator Pt.3
+  ansible.builtin.shell:  /usr/local/bin/kubectl  config set-context --current --namespace=eda
   args:
     executable: /bin/bash
+  ignore_errors: true
+
+
+
+# - name: Create Required Persistent Volume Directories
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#     owner: root
+#     group: root
+#     mode: 0775
+#   loop:
+#     - /var/lib/awx/postgres
+#     - /var/lib/awx/projects
+
+# - name: Set /data/projects Directory Permissions
+#   ansible.builtin.shell: chown 1000:0 /var/lib/awx/projects
+#   args:
+#     executable: /bin/bash
 
 
 - name: Modify /admin_tools/awx-operator/Makefile File
