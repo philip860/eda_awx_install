@@ -1,29 +1,21 @@
-- name: Set variable for ITS tools directory
+- name: Set variable for /admin_tools/eda_awx_install_config directory
   stat:
-    path: "/admin_tools"
-  register:  admin_tools_dir_check
+    path: "/admin_tools/eda_awx_install_config"
+  register:  admin_tools_eda_awx_install_dir_check
 
 - name: Create the ITS_tools directory if it is not present
   ansible.builtin.file:
-    path: "/admin_tools"
+    path: "/admin_tools/eda_awx_install_config"
     state: directory
     mode: '0755'
     recurse: yes
-  when: not admin_tools_dir_check.stat.exists == true
+  when: not admin_tools_eda_awx_install_dir_check.stat.exists == true
   
-- name: Download GIT AWX Operator
-  ansible.builtin.shell: git clone  https://github.com/ansible/awx-operator.git
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/
-    
-    
-- name: Checkout Version 2.5.0 Of awx-operator
-  ansible.builtin.shell: git checkout 2.5.0
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator
-    
+
+
+
+
+
 
 - name: Copy Over Custom awx-deploy files to /admin_tools/awx-operator
   ansible.builtin.copy:
