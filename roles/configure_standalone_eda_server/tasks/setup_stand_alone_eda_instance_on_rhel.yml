@@ -201,22 +201,22 @@
 
 
 ####### There seems to be a bug with the sleep package, any times longer than 60s seem to freeze the terminal
-# - name: Waiting 1 Minute For Pods To Initialize - Pt.1
-#   ansible.builtin.shell:  /bin/sleep 60
-#   args:
-#     executable: /bin/bash
+- name: Waiting 1 Minute For Pods To Initialize - Pt.1
+  ansible.builtin.shell:  /bin/sleep 60
+  args:
+    executable: /bin/bash
 
 
-# - name: Waiting 1 Minute For Pods To Initialize - Pt.2
-#   ansible.builtin.shell:  /bin/sleep 60
-#   args:
-#     executable: /bin/bash
+- name: Waiting 1 Minute For Pods To Initialize - Pt.2
+  ansible.builtin.shell:  /bin/sleep 60
+  args:
+    executable: /bin/bash
 
 
-# - name: Waiting 1 Minute For Pods To Initialize - Pt.3
-#   ansible.builtin.shell:  /bin/sleep 60
-#   args:
-#     executable: /bin/bash
+- name: Waiting 1 Minute For Pods To Initialize - Pt.3
+  ansible.builtin.shell:  /bin/sleep 60
+  args:
+    executable: /bin/bash
 
 - name: Create a EDA user
   user:
@@ -319,10 +319,10 @@
   args:
     executable: /bin/bash
 
-# - name: Uninstall traefik File
-#   ansible.builtin.shell: helm uninstall traefik traefik-crd -n kube-system
-#   args:
-#     executable: /bin/bash
+- name: Uninstall traefik File
+  ansible.builtin.shell: helm uninstall traefik traefik-crd -n kube-system
+  args:
+    executable: /bin/bash
 
 
 - name: Re-Start K3s Service
