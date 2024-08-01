@@ -28,8 +28,10 @@
     dest: "/etc/nginx/conf.d/"
 
 
-
-   
+- name: Copy Over eda-awx-no-ssl.conf  to /etc/nginx/conf.d
+  ansible.builtin.template:
+    src: "{{ role_path }}/files/config_files/eda-awx-no-ssl.conf"
+    dest: "/etc/nginx/conf.d/"   
 
 
 
