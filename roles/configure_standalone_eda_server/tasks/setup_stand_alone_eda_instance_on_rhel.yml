@@ -166,13 +166,13 @@
 #### Need to re-arrange the kustomize.yaml file Location
 - name: Create the /admin_tools/eda_awx_install_config/kustomize Directory
   ansible.builtin.file:
-    path: "/admin_tools/eda_awx_install_config/kustomize"
+    path: "/admin_tools/eda_awx_install_config/kustomize/"
     state: directory
     mode: '0755'
     recurse: yes
 
 - name: Move kustomization.yaml File to /admin_tools/eda_awx_install_config/kustomize Directory
-  ansible.builtin.shell: mv kustomization.yaml /admin_tools/eda_awx_install_config/kustomize
+  ansible.builtin.shell: mv kustomization.yaml /admin_tools/eda_awx_install_config/kustomize/kustomization.yaml
   args:
     executable: /bin/bash
     chdir: /admin_tools/eda_awx_install_config
