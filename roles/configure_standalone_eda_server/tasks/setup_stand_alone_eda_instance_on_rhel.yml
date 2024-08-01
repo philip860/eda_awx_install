@@ -163,7 +163,7 @@
     immediate: true
 
 
-#### Need to re-arrange the kustomize.yaml file
+#### Need to re-arrange the kustomize.yaml file Location
 - name: Create the /admin_tools/eda_awx_install_config/kustomize Directory
   ansible.builtin.file:
     path: "/admin_tools/eda_awx_install_config/kustomize"
