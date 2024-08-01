@@ -319,10 +319,10 @@
   args:
     executable: /bin/bash
 
-- name: Uninstall traefik File
-  ansible.builtin.shell: helm uninstall traefik traefik-crd -n kube-system
-  args:
-    executable: /bin/bash
+# - name: Uninstall traefik File
+#   ansible.builtin.shell: helm uninstall traefik traefik-crd -n kube-system
+#   args:
+#     executable: /bin/bash
 
 
 - name: Re-Start K3s Service
