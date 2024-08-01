@@ -1,3 +1,10 @@
+
+- name: Install nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: present 
+
+
 - name: Permit traffic in default zone on port 5432/tcp For External Postgres Server
   ansible.posix.firewalld:
     port: 5432/tcp
