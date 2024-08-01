@@ -166,38 +166,6 @@
     chdir: /admin_tools/awx-operator/awx-deploy    
      
     
-
-- name: Waiting 30 Seconds For Previous Command
-  ansible.builtin.shell:  /bin/sleep 30
-  args:
-    executable: /bin/bash
-
-
-
-
-- name: Waiting 30 Seconds For Previous Command
-  ansible.builtin.shell:  /bin/sleep 30
-  args:
-    executable: /bin/bash
-
-- name: Going to Delete Default v1beta1.metrics.k8s.io components file
-  ansible.builtin.shell:  /usr/local/bin/kubectl delete -f components-default.yaml
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator/config_files
-
-- name: Going to Add Custom v1beta1.metrics.k8s.io components file
-  ansible.builtin.shell:  /usr/local/bin/kubectl apply -f metrics-components-edited.yaml
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator/config_files
-
-- name: Prepare Traefik for HTTP Redirection
-  ansible.builtin.shell:  /usr/local/bin/kubectl -n default apply -f middleware.yaml
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator/http_redirect
-
 - name: Enable masquerade for Public Zone for http service
   ansible.posix.firewalld:
     masquerade: yes
@@ -206,11 +174,6 @@
     immediate: yes
     zone: public
 
-#- name: Set the IP Address,Hostname, & FDQN In /etc/hosts File
-#  ansible.builtin.shell:  python3 GET_IP_Address.py
-#  args:
-#    executable: /bin/bash
-#    chdir: /admin_tools/awx-operator/config_files
 
 - name: Waiting 30 Seconds For Pods To Initialize
   ansible.builtin.shell:  /bin/sleep 30
@@ -218,10 +181,6 @@
     executable: /bin/bash
 
 
-- name: Patch AWX Instance To Allow for HTTP Redirection
-  ansible.builtin.shell: bash /admin_tools/awx-operator/http_redirect/patch_awx_for_https.sh
-  args:
-    executable: /bin/bash
     
     
 - name: Waiting 10 Seconds For Pods To Initialize After Patch
@@ -244,57 +203,6 @@
 - name: Export AWX NameSpace To AWX User Bash Profile
   become: true
   become_user: awx
-  ansible.builtin.shell: echo 'export NAMESPACE=awx' >>  ~/.bashrc
+  ansible.builtin.shell: echo 'export NAMESPACE=eda' >>  ~/.bashrc
   args:
     executable: /bin/bash
-
-- name: Going to Delete Default v1beta1.metrics.k8s.io components file (2nd Time Running This Task)
-  ansible.builtin.shell:  /usr/local/bin/kubectl delete -f components-default.yaml
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator/config_files
-
-- name: Going to Add Custom v1beta1.metrics.k8s.io components file (2nd Time Running This Task)
-  ansible.builtin.shell:  /usr/local/bin/kubectl apply -f metrics-components-edited.yaml
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator/config_files/
-
-
-- name: Create the ITS_tools Git Download Directory
-  ansible.builtin.file:
-    path: "/admin_tools/standalone_awx_server_creds"
-    state: directory
-    mode: '0755'
-    recurse: true 
-
-- name: Enter in AWX Creds into /admin_tools/standalone_awx_server_creds/creds.txt File
-  ansible.builtin.copy:
-    content: |
-      Ansible AWX Postgres DB Password={{ awx_postgres_db_password }}
-      Ansible AWX Secret Key={{ secret_key }}
-      Ansible AWX Web UI Admin Username={{ awx_admin_username }}
-      Ansible AWX Web UI Admin Password={{ awx_admin_username_password }}
-    dest: /admin_tools/standalone_awx_server_creds/creds.txt
-
-
-
-- name: Get Default Admin Password For AWX Login
-  no_log: true
-  ansible.builtin.shell: '/usr/local/bin/kubectl -n awx get secret awx-admin-password -o jsonpath="{.data.password}" | base64 --decode'
-  args:
-    executable: /bin/bash
-  register: default_awx_web_ui_password_output
-
-
-- name: Show Default Web UI Login Admin Password
-  ansible.builtin.debug:
-    msg: "{{ default_awx_web_ui_password_output.stdout }}"
-
-- name: How you can Access AWX Server
-  ansible.builtin.debug:
-    msg:
-    - "Navigate to https://{{ ansible_fqdn }}/awx/#/login to access AWX Login"
-
-
-    
