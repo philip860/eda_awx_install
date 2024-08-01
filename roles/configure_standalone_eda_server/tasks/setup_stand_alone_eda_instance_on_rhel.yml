@@ -91,12 +91,24 @@
 
 
 - name: Need to Move Over TLS Cert From  /etc/letsencrypt directory
-  ansible.builtin.shell:  "cp -r /etc/letsencrypt/archive/{{ ansible_nodename }}/cert1.pem /admin_tools/awx-operator/awx-deploy/tls.crt" 
+  ansible.builtin.shell:  "cp -r /etc/letsencrypt/archive/{{ ansible_nodename }}/cert1.pem /admin_tools/eda-operator/eda-deploy/tls.crt" 
   args:
     executable: /bin/bash
 
 - name: Need to Move Over TLS Private Key From  /etc/letsencrypt directory
-  ansible.builtin.shell:  "cp -r /etc/letsencrypt/archive/{{ ansible_nodename }}/privkey1.pem /admin_tools/awx-operator/awx-deploy/tls.key" 
+  ansible.builtin.shell:  "cp -r /etc/letsencrypt/archive/{{ ansible_nodename }}/privkey1.pem /admin_tools/eda-operator/eda-deploy/tls.key" 
+  args:
+    executable: /bin/bash
+
+
+############## Certs Moved over from Self Signed Generation step, for nginx server
+- name: Need to Move Over TLS Cert From  /etc/letsencrypt directory
+  ansible.builtin.shell:  "cp -r /etc/letsencrypt/archive/{{ ansible_nodename }}/cert1.pem /etc/nginx/conf.d/server.crt" 
+  args:
+    executable: /bin/bash
+
+- name: Need to Move Over TLS Private Key From  /etc/letsencrypt directory
+  ansible.builtin.shell:  "cp -r /etc/letsencrypt/archive/{{ ansible_nodename }}/privkey1.pem /etc/nginx/conf.d/server.key" 
   args:
     executable: /bin/bash
 
