@@ -26,8 +26,6 @@
     replace: "{{  ansible_aap_controller  }}"
 
 
-
-
 - name: Download kustomize 
   ansible.builtin.shell:  'curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash'
   args:
