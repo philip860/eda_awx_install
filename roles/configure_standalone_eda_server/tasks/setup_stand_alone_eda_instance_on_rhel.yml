@@ -221,14 +221,18 @@
 
 
 ##### Need to replace the proxy IP address in the nginx config
-- name: Entering a awx_admin_username Into secret File
-  replace:
-    path: "/etc/nginx/conf.d/eda-awx-ssl.conf"
-    regexp: 'eda-server'
-    replace: "{{ awx_admin_username }}"
+# - name: Entering a awx_admin_username Into secret File
+#   replace:
+#     path: "/etc/nginx/conf.d/eda-awx-ssl.conf"
+#     regexp: 'eda-server'
+#     replace: "{{ awx_admin_username }}"
 
 
-
+- name: Run Shell Script To Update Nginx Proxy For EDA Server
+  ansible.builtin.shell: bash set_proxy_IP_For_EDA_Server.sh
+  args:
+    executable: /bin/bash
+    chdir: /admin_tools/eda_awx_install_config 
 
 
 - name: Start Nginx Reverse Proxy Server
