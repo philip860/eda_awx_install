@@ -89,18 +89,6 @@
 #     executable: /bin/bash
 
 
-- name: Modify /admin_tools/awx-operator/Makefile File
-  replace:
-    path: "/admin_tools/awx-operator/Makefile"
-    regexp: 'kubectl'
-    replace: "/usr/local/bin/kubectl"
-
-- name: Deploy AWX Operator
-  ansible.builtin.shell:  make deploy
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator
-
 
 - name: Need to Move Over TLS Cert From  /etc/letsencrypt directory
   ansible.builtin.shell:  "cp -r /etc/letsencrypt/archive/{{ ansible_nodename }}/cert1.pem /admin_tools/awx-operator/awx-deploy/tls.crt" 
@@ -112,67 +100,6 @@
   args:
     executable: /bin/bash
 
-
-- name: Generate SSL Cert YAML File
-  ansible.builtin.shell: "/usr/local/bin/kubectl -n awx create secret tls awx-secret-tls --cert=tls.crt --key=tls.key --dry-run=client -o yaml"
-  args:
-    executable: /bin/bash
-    chdir: /admin_tools/awx-operator/awx-deploy
-  register: ssl_certs_output
-
-#Need to fix variable to extra SSL Cert List Conversion
-- name: Get SSL Cert
-  no_log: true
-  set_fact:
-    ssl_cert_variable_list: "{{ ssl_certs_output.stdout_lines |  join(',') }}"
-
-
-#Need to fix variable to remove Unnecessary Info From SSL Cert List Conversion Pt.1
-- name: Editing ssl_cert_variable_list and creating ssl_cert_variable_edit1
-  no_log: true
-  set_fact:
-    ssl_cert_variable_edit1: "{{ ssl_cert_variable_list | regex_findall('.*tls.key' ) }}"
-
-
-#Need to fix variable to remove Unnecessary Info From SSL Cert List Conversion  Pt.2
-- name: Editing ssl_cert_variable_edit1 and creating ssl_cert_variable_edit2
-  no_log: true
-  set_fact:
-    ssl_cert_variable_edit2: "{{ ssl_cert_variable_edit1 | regex_findall('tls.crt.*' ) | replace('tls.key', '') | replace(',', '')  | replace(',', '') | replace(\"'\",'')  | replace('  ]','') | replace('tls.crt:','') | replace(' ','') | trim }}"
-
-
-- name: Entering a ssl_cert_variable_edit2 Into secret File
-  replace:
-    path: "/admin_tools/awx-operator/awx-deploy/secret.yaml"
-    regexp: 'SSL_CERT'
-    replace: "{{  ssl_cert_variable_edit2[0] }}"
-
-
-#Need to fix variable to extra SSL Cert List Conversion
-- name: Get SSL Cert Private Key
-  no_log: true
-  set_fact:
-    ssl_cert_private_key_variable_list: "{{ ssl_certs_output.stdout_lines |  join(',') }}"
-
-
-#Need to fix variable to remove Unnecessary Info From SSL Cert  Private Key List Conversion Pt.1
-- name: Editing ssl_cert_private_key_variable_list and  ssl_cert_private_key_variable_edit1
-  no_log: true
-  set_fact:
-   ssl_cert_private_key_variable_edit1: "{{ ssl_cert_private_key_variable_list | regex_findall('tls.key.*' ) }}"
-
-#Need to fix variable to remove Unnecessary Info From SSL Cert  Private Key List Conversion Pt.1
-- name: Editing ssl_cert_private_key_variable_edit1 and  ssl_cert_private_key_variable_edit2
-  no_log: true
-  set_fact:
-   ssl_cert_private_key_variable_edit2: "{{ ssl_cert_private_key_variable_edit1 | regex_findall('.*kind' )  | replace(',', '') | replace(\"'\",'')  | replace('[tls.key:','') | replace('kind', '') | replace(' ', '') }}"
-
-
-- name: Entering ssl_cert_private_key_variable_edit2 Into secret File
-  replace:
-    path: "/admin_tools/awx-operator/awx-deploy/secret.yaml"
-    regexp: 'SSL_KEY'
-    replace: "{{  ssl_cert_private_key_variable_edit2[0] }}"
 
 
 - name: Entering a awx_admin_username Into secret File
@@ -226,10 +153,11 @@
     immediate: true
 
 
-- name: Deploy AWX
-  ansible.builtin.shell: cd /admin_tools/awx-operator &&  /usr/local/bin/kubectl apply -k awx-deploy
+- name: Run kustomize to install eda operator 
+  ansible.builtin.shell: /usr/local/bin/kustomize build . | kubectl apply -f -
   args:
     executable: /bin/bash
+    chdir: /admin_tools/eda_awx_install_config
     
 - name: Apply AWX Secrets
   ansible.builtin.shell: /usr/local/bin/kubectl apply -f secret.yaml
