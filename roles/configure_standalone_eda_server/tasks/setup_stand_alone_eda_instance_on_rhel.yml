@@ -239,16 +239,6 @@
 
 
 
-
-
-
-
-# - name: Run Shell Script To Update Nginx Proxy For EDA Server
-#   ansible.builtin.shell: bash set_proxy_IP_For_EDA_Server.sh
-#   args:
-#     executable: /bin/bash
-
-
 - name: Get EDA Service Status
   ansible.builtin.shell:  kubectl get service -n eda | grep 'eda-ui'
   args:
